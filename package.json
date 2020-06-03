@@ -6,11 +6,11 @@
     "start": "node ./bin/www"
   },
   "engines": {
-    "node":"10.15.3"
+    "node": "10.15.3"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^3.0.8",
     "config": "^3.0.1",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
