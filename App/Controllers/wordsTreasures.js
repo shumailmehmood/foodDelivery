@@ -1,7 +1,6 @@
 const WordsTreasure = require('../Schemas/wordsTresure');
 exports.create = async (req, res) => {
-    try {
-        console.log(req.body)
+    try {       
         let { term, defination } = req.body;
         let body = new WordsTreasure({
             term: term,
