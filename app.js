@@ -6,7 +6,7 @@ var morgan = require('morgan');
 var fs = require('fs');
 var cors = require('cors')
 var app = express();
-require('dotenv').config()  
+require('dotenv').config()
 const appRoute = require('./App/Apis/api');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.URL || 'mongodb://localhost/dictionary',
