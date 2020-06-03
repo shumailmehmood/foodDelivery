@@ -1,5 +1,5 @@
 const WordsTreasure = require('../Schemas/wordsTresure');
-exports.create = async (req,res) => {
+exports.create = async (req, res) => {
     try {
         console.log(req.body)
         let { term, defination } = req.body;
@@ -15,13 +15,13 @@ exports.create = async (req,res) => {
 }
 exports.get = async (req, res) => {
     try {
-        let { term, page, limit,allwords } = req.params;
+        let { term, page, limit, allwords } = req.query;
         page = page ? +page : 1;
         limit = limit ? +limit : 10
         let query = {};
         query["term"] = new RegExp(term, "i");
-        if(!allwords){
-        query["active"] =true;
+        if (!allwords) {
+            query["active"] = true;
         }
         let response = await WordsTreasure.aggregate([
             { $match: query },
@@ -47,8 +47,7 @@ exports.get = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         let { termId } = req.params;
-        let { data } = req.body;
-        let response = await WordsTreasure.findByIdAndUpdate(termId, data, { new: true });
+        let response = await WordsTreasure.findByIdAndUpdate(termId, req.body, { new: true });
         return res.send({
             message: "Your Term Updated Successfully!!",
             data: response

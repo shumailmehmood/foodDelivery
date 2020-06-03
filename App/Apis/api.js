@@ -8,5 +8,5 @@ router.post('/test',async(req,res)=>await res.send(req.body))
 router.get('/getTerm', WordsTresureController.get);
 router.get('/test', (req, res) => res.send("Reached SuccessFully"))
 //---------put routes------
-router.put('/updateTerm', WordsTresureController.update);
+router.put('/updateTerm/:termId', WordsTresureController.update);
 module.exports = router;
