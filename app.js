@@ -6,10 +6,12 @@ var morgan = require('morgan');
 var fs = require('fs');
 var cors = require('cors')
 var app = express();
+const qrcode = require('qrcode')
 require('dotenv').config()
 const appRoute = require('./App/Apis/api');
 const mongoose = require('mongoose');
-mongoose.connect(process.env.URL || 'mongodb://localhost/dictionary',
+const { createCanvas, loadImage } = require('canvas')
+mongoose.connect(process.env.URL1 || 'mongodb://localhost/dictionary',
   { useNewUrlParser: true })
   .then(() => console.log('MongoDb successsFully Connected!!'))
   .catch(err => console.log('Errror in connecting mongodb', err));
@@ -21,7 +23,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/api', appRoute);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
