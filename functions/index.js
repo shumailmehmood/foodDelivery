@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const app = require("../app.js");
-exports.app = functions.https.onRequest(app);
+exports.app = functions.https.onRequest();
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
