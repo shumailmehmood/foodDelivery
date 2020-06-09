@@ -7,6 +7,10 @@ const wordsTreasure = mongoose.Schema({
     defination: {
         type: String,
         required: true
+    },    
+    citation: {
+        type: String,
+        required: true
     },
     active: {
         type: Boolean,

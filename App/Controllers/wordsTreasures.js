@@ -1,10 +1,11 @@
 const WordsTreasure = require('../Schemas/wordsTresure');
 exports.create = async (req, res) => {
-    try {       
-        let { term, defination } = req.body;
+    try {
+        let { term, defination, citation } = req.body;
         let body = new WordsTreasure({
             term: term,
-            defination: defination
+            defination: defination,
+            citation: citation
         })
         await body.save();
         return res.send("Your New Term Saved SuccessFully!!")
@@ -46,9 +47,21 @@ exports.get = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         let { termId } = req.params;
-        let response = await WordsTreasure.findByIdAndUpdate(termId, req.body, { new: true });
+        let response = await WordsTreasure.findByIdAndUpdate(termId, req.body, { new: true }).lean();
         return res.send({
             message: "Your Term Updated Successfully!!",
+            data: response
+        })
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+}
+exports.deleteTerm = async (req, res) => {
+    try {
+        let { termId } = req.params;
+        let response = await WordsTreasure.findOneAndDelete(termId).lean();
+        return res.send({
+            message: "Your Term Removed Successfully!!",
             data: response
         })
     } catch (error) {
