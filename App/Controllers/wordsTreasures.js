@@ -19,7 +19,7 @@ exports.get = async (req, res) => {
         page = page ? +page : 1;
         limit = limit ? +limit : 10
         let query = {};
-        query["term"] = new RegExp(term, "i");
+        query["term"] = new RegExp('^' + term, "i");
         if (!allwords) {
             query["active"] = true;
         }
