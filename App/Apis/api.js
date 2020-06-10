@@ -6,6 +6,8 @@ router.post('/addTerm', WordsTresureController.create);
 router.post('/test', async (req, res) => await res.send(req.body))
 //---------get routes------
 router.get('/getTerm', WordsTresureController.get);
+router.get('/getStartTerm', WordsTresureController.getStartWord);
+
 router.get('/test', (req, res) => res.send("Reached SuccessFully"))
 //---------put routes------
 router.put('/updateTerm/:termId', WordsTresureController.update);

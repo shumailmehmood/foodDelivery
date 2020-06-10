@@ -19,6 +19,37 @@ exports.get = async (req, res) => {
         page = page ? +page : 1;
         limit = limit ? +limit : 10
         let query = {};
+        query["term"] = new RegExp(term, "i");
+        if (!allwords) {
+            query["active"] = true;
+        }
+        let response = await WordsTreasure.aggregate([
+            { $match: query },
+            {
+                $facet: {
+                    metadata: [{ $count: "total_words" },
+                    {
+                        $addFields: {
+                            page: page,
+                            limit: limit,
+                            pages: { $ceil: { $divide: ["$total_words", limit] } }
+                        }
+                    }],
+                    data: [{ $skip: (page * limit - limit) }, { $limit: limit }]
+                }
+            }
+        ])
+        return res.send(response[0])
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+}
+exports.getStartWord = async (req, res) => {
+    try {
+        let { term, page, limit, allwords } = req.query;
+        page = page ? +page : 1;
+        limit = limit ? +limit : 10
+        let query = {};
         query["term"] = new RegExp('^' + term, "i");
         if (!allwords) {
             query["active"] = true;
