@@ -11,7 +11,7 @@ require('dotenv').config()
 const appRoute = require('./App/Apis/api');
 const mongoose = require('mongoose');
 const { createCanvas, loadImage } = require('canvas')
-mongoose.connect(process.env.URL1 || 'mongodb://localhost/dictionary',
+mongoose.connect(process.env.URL || 'mongodb://localhost/dictionary',
   { useNewUrlParser: true })
   .then(() => console.log('MongoDb successsFully Connected!!'))
   .catch(err => console.log('Errror in connecting mongodb', err));
