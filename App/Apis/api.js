@@ -1,17 +1,20 @@
 var express = require('express');
 var router = express.Router();
-const WordsTresureController = require('../Controllers/wordsTreasures');
+const WordsTresureController = require('../Controllers/Menu');
+const OrderController = require("../Controllers/Order");
+
 //---------post routes------
-router.post('/addTerm', WordsTresureController.create);
+router.post('/addFood', WordsTresureController.create);
+router.post('/createOrder', OrderController.create);
 router.post('/test', async (req, res) => await res.send(req.body))
 //---------get routes------
-router.get('/getTerm', WordsTresureController.get);
-router.get('/getStartTerm', WordsTresureController.getStartWord);
+router.get('/getTodayFood', OrderController.getTodayOrder);
+router.get('/getAllMenu', WordsTresureController.getAllMenu);
+router.get('/trackOrder/:orderNumber', OrderController.trackOrder);
+
 
 router.get('/test', (req, res) => res.send("Reached SuccessFully"))
 //---------put routes------
-router.put('/updateTerm/:termId', WordsTresureController.update);
-//----------------delete routes------------------------------
-router.delete('/deleteTerm/:termId', WordsTresureController.deleteTerm);
+
 
 module.exports = router;

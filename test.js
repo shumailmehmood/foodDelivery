@@ -27,5 +27,6 @@
 // var qanswer = int1 + int2;
 
 const moment=require('moment');
-console.log(moment('2020-02-24T07:34:50.648Z').startOf('day').toISOString())
-console.log(moment('2020-02-24T07:34:50.648Z').endOf('day').toISOString())
+console.log(moment().add(5,'hour').toISOString())
+// console.log(moment('2020-02-24T07:34:50.648Z').startOf('day').toISOString())
+// console.log(moment('2020-02-24T07:34:50.648Z').endOf('day').toISOString())
