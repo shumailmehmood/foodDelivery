@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
             let result = await body.save();
             orderId = `OID-${result.count}`
         }
-        
+
         let body = new Order({
             orderID: orderId,
             orderedFoods: orderedFoods,
@@ -42,8 +42,14 @@ exports.trackOrder = async (req, res) => {
         }
         let response = await Order.aggregate([
             { $match: query },
+            {
+                $addFields: {
+                    duration: { $round: [{ $divide: [{ $subtract: ["$deliveryTime", moment().toDate()] }, 3600000] }, 1] }
+                }
+            },
+            { $sort: { createdAt: -1 } },
         ])
-        return res.send(response)
+        return res.send(response[0])
     } catch (error) {
         return res.status(400).send(error.message)
     }
@@ -53,13 +59,13 @@ exports.getTodayOrder = async (req, res) => {
 
         let query = {};
         query["createdAt"] = { $gte: new Date(moment().startOf('day')), $lte: new Date(moment().endOf('day')) }
-        
+
         let response = await Order.aggregate([
             { $match: query },
             {
                 "$group": {
                     "_id": null,
-                   
+
                     "tags": { "$addToSet": "$orderedFoods" }
                 }
             },
@@ -84,7 +90,7 @@ exports.getTodayOrder = async (req, res) => {
             {
                 "$group": {
                     "_id": "$orderedFoods.food_id",
-                    "count": { "$sum": 1 },                   
+                    "count": { "$sum": 1 },
                 }
             },
             {
