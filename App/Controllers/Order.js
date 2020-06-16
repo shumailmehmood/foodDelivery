@@ -15,7 +15,8 @@ exports.create = async (req, res) => {
             })
             let result = await body.save();
             orderId = `OID-${result.count}`
-        }        
+        }
+        
         let body = new Order({
             orderID: orderId,
             orderedFoods: orderedFoods,
@@ -52,6 +53,7 @@ exports.getTodayOrder = async (req, res) => {
 
         let query = {};
         query["createdAt"] = { $gte: new Date(moment().startOf('day')), $lte: new Date(moment().endOf('day')) }
+        
         let response = await Order.aggregate([
             { $match: query },
             {

@@ -24,6 +24,11 @@ exports.getAllMenu = async (req, res) => {
         }
         let response = await Menu.aggregate([
             { $match: query },
+            {
+                $project: {
+                    menu: "$$ROOT"
+                }
+            }
         ])
         return res.send(response)
     } catch (error) {
