@@ -15,8 +15,7 @@ exports.create = async (req, res) => {
             })
             let result = await body.save();
             orderId = `OID-${result.count}`
-        }
-        console.log(orderId, globalCount)
+        }        
         let body = new Order({
             orderID: orderId,
             orderedFoods: orderedFoods,
